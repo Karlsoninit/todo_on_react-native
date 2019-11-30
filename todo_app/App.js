@@ -11,9 +11,9 @@ export default function App() {
   return (
     <View style={styles.container}>
 
-      <AddTodo />
 
       <Navbar title="Todo App" />
+      <AddTodo />
 
     </View>
   );

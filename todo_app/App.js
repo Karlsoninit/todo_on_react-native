@@ -1,8 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import Navbar from "./src/components/Navbar";
 
 export default function App() {
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <Navbar title="Todo App" />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

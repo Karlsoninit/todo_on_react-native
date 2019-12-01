@@ -1,11 +1,16 @@
 import React from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 
-const AddTodo = () => {
+const AddTodo = ({ handleGetInfo, handleSibmitAdd, value }) => {
   return (
     <View style={styles.inputContainer}>
-      <TextInput style={styles.input} placeholder="create new todo" />
-      <Button title="add" />
+      <TextInput
+        style={styles.input}
+        onChangeText={handleGetInfo}
+        placeholder="create new todo"
+        value={value}
+      />
+      <Button title="add" onPress={() => handleSibmitAdd()} />
     </View>
   );
 };

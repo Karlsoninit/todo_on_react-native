@@ -1,34 +1,43 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, deleteItems }) => {
   return (
     <View style={styles.todoContainer}>
-      {todo.map(({ id, title }) => (
-        <View style={styles.todo} key={id}>
-          <View style={styles.textContainer}>
-            <Text>{title}</Text>
-          </View>
-          <Button title="Delete" onPress={() => console.log("delete")}></Button>
+      <TouchableOpacity
+        style={styles.todoList}
+        activeOpacity={0.5}
+        onPress={() => {
+          console.log(todo.id);
+        }}
+        onLongPress={() => deleteItems(todo.id)}
+      >
+        <View>
+          <Text>{todo.todo}</Text>
         </View>
-      ))}
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   todoContainer: {
-    width: "80%",
-    height: 50,
-    borderWidth: 1,
-    borderColor: "#4939"
-  },
-  todo: {
-    flexDirection: "row"
-  },
-  textContainer: {
-    justifyContent: "center",
     alignItems: "center"
+  },
+  todoList: {
+    height: 50,
+    width: "90%",
+    borderWidth: 1,
+    borderColor: "#4939",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10
   }
 });
 

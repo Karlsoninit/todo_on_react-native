@@ -1,16 +1,17 @@
 import React from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 
-const AddTodo = ({ handleGetInfo, handleSibmitAdd, value }) => {
+const AddTodo = props => {
   return (
-    <View style={styles.inputContainer}>
+    <View style={{ ...props.style, ...styles.inputContainer }}>
       <TextInput
+        autoCorrect={false}
         style={styles.input}
-        onChangeText={handleGetInfo}
+        onChangeText={props.handleGetInfo}
         placeholder="create new todo"
-        value={value}
+        value={props.value}
       />
-      <Button title="add" onPress={() => handleSibmitAdd()} />
+      <Button title="ADD" onPress={() => props.handleSibmitAdd()} />
     </View>
   );
 };
@@ -18,8 +19,7 @@ const AddTodo = ({ handleGetInfo, handleSibmitAdd, value }) => {
 const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 30
+    justifyContent: "space-between"
   },
   input: {
     width: "70%",

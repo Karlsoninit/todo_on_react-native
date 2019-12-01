@@ -1,6 +1,5 @@
-
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Keyboard, Alert, FlatList } from "react-native";
 import shortId from "shortid";
 import Navbar from "./src/components/Navbar";
 import AddTodo from "./src/components/AddTodo";
@@ -17,33 +16,46 @@ export default function App() {
   const handleSibmitAdd = () => {
     const newTodo = {
       id: shortId(),
-      todo: todo
+      todo
     };
-    setTodos(prev => [...prev, newTodo]);
-    setTodo("");
+
+    if (todo.length !== 0) {
+      setTodos(prev => [...prev, newTodo]);
+      setTodo("");
+      Keyboard.dismiss();
+    } else {
+      Alert.alert("need typing todo");
+    }
+  };
+
+  const deleteItems = id => {
+    setTodos(prev => prev.filter(elem => elem.id !== id));
   };
 
   return (
-
-    <View style={styles.container}>
+    <View>
       <Navbar title="Todo App" />
-      <View style={styles.container}>
-        <AddTodo
-          value={todo}
-          handleGetInfo={getTodos}
-          handleSibmitAdd={handleSibmitAdd}
-        />
-    </View>
+      <AddTodo
+        style={styles.container}
+        value={todo}
+        handleGetInfo={getTodos}
+        handleSibmitAdd={handleSibmitAdd}
+      />
+
+      <FlatList
+        keyExtractor={item => item.id}
+        data={todos}
+        renderItem={({ item }) => (
+          <Todo deleteItems={deleteItems} todo={item} />
+        )}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
-
   container: {
     paddingHorizontal: 20,
     paddingVertical: 30
   }
-
 });

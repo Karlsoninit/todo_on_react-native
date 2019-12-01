@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import shortId from "shortid";
-import { StyleSheet, Text, View } from "react-native";
-import AddTodo from "./src/components/AddTodo";
 
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import shortId from "shortid";
 import Navbar from "./src/components/Navbar";
+import AddTodo from "./src/components/AddTodo";
+import Todo from "./src/components/Todo";
 
 export default function App() {
   const [todo, setTodo] = useState("");
@@ -23,7 +24,8 @@ export default function App() {
   };
 
   return (
-    <View>
+
+    <View style={styles.container}>
       <Navbar title="Todo App" />
       <View style={styles.container}>
         <AddTodo
@@ -31,14 +33,17 @@ export default function App() {
           handleGetInfo={getTodos}
           handleSibmitAdd={handleSibmitAdd}
         />
-      </View>
+    </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+
+
   container: {
     paddingHorizontal: 20,
     paddingVertical: 30
   }
+
 });

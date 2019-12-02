@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const Todo = ({ todo, deleteItems }) => {
+const Todo = ({ todo, deleteItems, getIdForSwithingScreen }) => {
   return (
     <View style={styles.todoContainer}>
       <TouchableOpacity
@@ -15,6 +9,7 @@ const Todo = ({ todo, deleteItems }) => {
         activeOpacity={0.5}
         onPress={() => {
           console.log(todo.id);
+          getIdForSwithingScreen(todo.id);
         }}
         onLongPress={() => deleteItems(todo.id)}
       >

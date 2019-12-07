@@ -57,6 +57,18 @@ export default function App() {
     setGetId(id);
   };
 
+  const handleSave = (id, value) => {
+    setTodos(old =>
+      old.map(todo => {
+        console.log("todo handleSave--------->", todo);
+        if (todo.id === id) {
+          todo.todo = value;
+        }
+        return todo;
+      })
+    );
+  };
+
   let content = (
     <MainScreen
       getTodos={getTodos}
@@ -75,6 +87,7 @@ export default function App() {
         onDelete={deleteItems}
         oneTask={oneTask}
         prevPage={() => setGetId(null)}
+        onSave={handleSave}
       />
     );
   }

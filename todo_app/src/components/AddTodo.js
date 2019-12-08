@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
+import { SimpleLineIcons } from "@expo/vector-icons";
 
 const AddTodo = props => {
   return (
@@ -11,7 +12,12 @@ const AddTodo = props => {
         placeholder="create new todo"
         value={props.value}
       />
-      <Button title="ADD" onPress={() => props.handleSibmitAdd()} />
+      <SimpleLineIcons.Button
+        name="plus"
+        onPress={() => props.handleSibmitAdd()}
+      >
+        ADD
+      </SimpleLineIcons.Button>
     </View>
   );
 };

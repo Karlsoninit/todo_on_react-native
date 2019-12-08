@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    color: "tomato"
+    color: "tomato",
+    fontFamily: "tomorrow-Italic"
   }
 });
 

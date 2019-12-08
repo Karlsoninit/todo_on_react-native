@@ -1,11 +1,32 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions
+} from "react-native";
+import theme from "../theme";
 const Todo = ({ todo, deleteItems, getIdForSwithingScreen }) => {
+  const [deviceWidth, setDeviceWidth] = useState(
+    Dimensions.get("window").width - theme.PADDING_HORIZINTAL * 2
+  );
+  useEffect(() => {
+    const changeWidth = () => {
+      const width =
+        Dimensions.get("window").width - theme.PADDING_HORIZINTAL * 2;
+      setDeviceWidth(width);
+    };
+
+    Dimensions.addEventListener("change", changeWidth);
+    return () => {
+      Dimensions.removeEventListener("change", changeWidth);
+    };
+  });
   return (
     <View style={styles.todoContainer}>
       <TouchableOpacity
-        style={styles.todoList}
+        style={{ ...styles.todoList, width: deviceWidth }}
         activeOpacity={0.5}
         onPress={() => {
           console.log(todo.id);
@@ -23,11 +44,11 @@ const Todo = ({ todo, deleteItems, getIdForSwithingScreen }) => {
 
 const styles = StyleSheet.create({
   todoContainer: {
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center"
   },
   todoList: {
     height: 50,
-    width: "90%",
     borderWidth: 1,
     borderColor: "#4939",
     justifyContent: "center",

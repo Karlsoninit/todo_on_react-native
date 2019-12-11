@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, FlatList, Image, Text } from "react-native";
 import AddTodo from "../components/AddTodo";
 import Todo from "../components/Todo";
+import { ScreenContext } from "../context/screen/screenContext";
+import { TodoContext } from "../context/todo/todoContaxt";
 
-const MainScreen = ({
-  getTodos,
-  todo,
-  handleSibmitAdd,
-  deleteItems,
-  todos,
-  getIdForSwithingScreen
-}) => {
+const MainScreen = ({ todo }) => {
+  const { addTodo, todos, deleteTodo } = useContext(TodoContext);
+  const { changeScreen } = useContext(ScreenContext);
   let content = (
     <View style={styles.imageContainer}>
       <Image
@@ -26,13 +23,16 @@ const MainScreen = ({
       <FlatList
         keyExtractor={item => item.id}
         data={todos}
-        renderItem={({ item }) => (
-          <Todo
-            getIdForSwithingScreen={getIdForSwithingScreen}
-            deleteItems={deleteItems}
-            todo={item}
-          />
-        )}
+        renderItem={({ item }) => {
+          console.log("item", item);
+          return (
+            <Todo
+              getIdForSwithingScreen={changeScreen}
+              deleteItems={deleteTodo}
+              todo={item}
+            />
+          );
+        }}
       />
     );
   }
@@ -41,8 +41,7 @@ const MainScreen = ({
       <AddTodo
         style={styles.container}
         value={todo}
-        handleGetInfo={getTodos}
-        handleSibmitAdd={handleSibmitAdd}
+        handleSibmitAdd={addTodo}
       />
       {content}
     </View>

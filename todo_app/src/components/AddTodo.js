@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 
 const AddTodo = props => {
+  const [value, setValue] = useState("");
   return (
     <View style={{ ...props.style, ...styles.inputContainer }}>
       <TextInput
         autoCorrect={false}
         style={styles.input}
-        onChangeText={props.handleGetInfo}
+        onChangeText={setValue}
         placeholder="create new todo"
-        value={props.value}
+        value={value}
       />
       <SimpleLineIcons.Button
         name="plus"
-        onPress={() => props.handleSibmitAdd()}
+        onPress={() => props.handleSibmitAdd(value)}
       >
         ADD
       </SimpleLineIcons.Button>

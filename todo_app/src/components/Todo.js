@@ -7,6 +7,7 @@ import {
   Dimensions
 } from "react-native";
 import theme from "../theme";
+
 const Todo = ({ todo, deleteItems, getIdForSwithingScreen }) => {
   const [deviceWidth, setDeviceWidth] = useState(
     Dimensions.get("window").width - theme.PADDING_HORIZINTAL * 2
@@ -29,13 +30,12 @@ const Todo = ({ todo, deleteItems, getIdForSwithingScreen }) => {
         style={{ ...styles.todoList, width: deviceWidth }}
         activeOpacity={0.5}
         onPress={() => {
-          console.log(todo.id);
           getIdForSwithingScreen(todo.id);
         }}
         onLongPress={() => deleteItems(todo.id)}
       >
         <View>
-          <Text>{todo.todo}</Text>
+          <Text>{todo.todos}</Text>
         </View>
       </TouchableOpacity>
     </View>

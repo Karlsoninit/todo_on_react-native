@@ -3,7 +3,11 @@ import { View, Button, StyleSheet, Modal, TextInput, Text } from "react-native";
 import Card from "../ui/Card";
 
 const EditModel = ({ visible, isOpen, onReplacemant, innerValue }) => {
-  const [replasemantValue, setReplasemantValue] = useState(innerValue.todo);
+  const [replasemantValue, setReplasemantValue] = useState(innerValue.todos);
+  const cancelHandler = () => {
+    isOpen();
+    setReplasemantValue(innerValue.todos);
+  };
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.modalContainer}>
@@ -16,7 +20,7 @@ const EditModel = ({ visible, isOpen, onReplacemant, innerValue }) => {
           />
         </Card>
         <View style={styles.modalButton}>
-          <Button color="red" onPress={isOpen} title="Cancel" />
+          <Button color="red" onPress={() => cancelHandler()} title="Cancel" />
           <Button
             onPress={() => onReplacemant(replasemantValue)}
             title="Save"

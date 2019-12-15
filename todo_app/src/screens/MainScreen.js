@@ -1,13 +1,36 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import { View, StyleSheet, FlatList, Image, Text } from "react-native";
 import AddTodo from "../components/AddTodo";
 import Todo from "../components/Todo";
 import { ScreenContext } from "../context/screen/screenContext";
 import { TodoContext } from "../context/todo/todoContaxt";
+import AppLoader from "../ui/AppLoader";
+import AppText from "../ui/AppText";
 
 const MainScreen = ({ todo }) => {
-  const { addTodo, todos, deleteTodo } = useContext(TodoContext);
+  const {
+    addTodo,
+    todos,
+    deleteTodo,
+    fetchTodo,
+    loading,
+    state,
+    error
+  } = useContext(TodoContext);
   const { changeScreen } = useContext(ScreenContext);
+
+  if (loading) {
+    return <AppLoader />;
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <AppText>{error.error}</AppText>
+      </View>
+    );
+  }
+
   let content = (
     <View style={styles.imageContainer}>
       <Image
@@ -24,7 +47,7 @@ const MainScreen = ({ todo }) => {
         keyExtractor={item => item.id}
         data={todos}
         renderItem={({ item }) => {
-          console.log("item", item);
+          // console.log("item", item);
           return (
             <Todo
               getIdForSwithingScreen={changeScreen}
@@ -36,6 +59,13 @@ const MainScreen = ({ todo }) => {
       />
     );
   }
+
+  const loadTodos = useCallback(async () => await fetchTodo(), [fetchTodo]);
+
+  useEffect(() => {
+    loadTodos();
+  }, []);
+
   return (
     <View>
       <AddTodo
@@ -69,6 +99,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "tomato",
     fontFamily: "tomorrow-Italic"
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 

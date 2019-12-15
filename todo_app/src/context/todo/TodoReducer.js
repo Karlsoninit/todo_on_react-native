@@ -1,13 +1,15 @@
-import shortId from "shortid";
 import Type from "../type";
 
-// более продвинутая версия
-
 const handlers = {
-  [Type.TODO_ADD]: (state, { todos }) => ({
-    ...state,
-    todos: [...state.todos, { id: shortId(), todos: todos }]
-  }),
+  [Type.TODO_ADD]: (state, { todos, id }) => {
+    // console.log("init object");
+    // console.log("todos -----> ", todos);
+    // console.log("id -----> ", id);
+    return {
+      ...state,
+      todos: [...state.todos, { id, todos }]
+    };
+  },
   [Type.TODO_DELETE]: (state, { id }) => ({
     ...state,
     todos: state.todos.filter(todo => todo.id !== id)
@@ -21,6 +23,27 @@ const handlers = {
       return elem;
     })
   }),
+  [Type.FETCH_TODOS]: (state, { todos }) => ({
+    ...state,
+    todos
+  }),
+  [Type.SHOW_LOADER]: state => ({
+    ...state,
+    loading: true
+  }),
+  [Type.HIDE_LOADER]: state => ({
+    ...state,
+    loading: false
+  }),
+  [Type.CLEAR_ERROR]: state => ({
+    ...state,
+    error: null
+  }),
+  [Type.SHOW_ERROR]: (state, error) => ({
+    ...state,
+    error
+  }),
+
   DEFAULT: state => state
 };
 
@@ -28,33 +51,3 @@ export const todoReducer = (state, action) => {
   const handler = handlers[action.type] || handlers.DEFAULT;
   return handler(state, action);
 };
-
-//-------- старая версия
-
-// export const todoReducer = (state, action) => {
-//   console.log("state", state);
-//   switch (action.type) {
-//     case Type.TODO_ADD:
-//       return {
-//         ...state,
-//         todos: [...state.todos, { id: shortId(), todos: action.todos }]
-//       };
-//     case Type.TODO_DELETE:
-//       return {
-//         ...state,
-//         todos: state.todos.filter(todo => todo.id !== action.id)
-//       };
-//     case Type.TODO_UPDATE:
-//       return {
-//         ...state,
-//         todos: state.todos.map(elem => {
-//           if (elem.id === action.id) {
-//             elem.todos = action.value;
-//           }
-//           return elem;
-//         })
-//       };
-//     default:
-//       return state;
-//   }
-// };

@@ -15,32 +15,11 @@ const TodoScreen = ({ getValue }) => {
   const { deleteTodo, updateTodo, todos } = useContext(TodoContext);
 
   const oneTask = todos.find(el => el.id === getId);
-  const replacemant = value => {
-    updateTodo(oneTask.id, value);
+
+  const replacemant = async value => {
+    await updateTodo(oneTask.id, value);
     setModal(false);
-    console.log("innnnnnner", oneTask.todos);
-    getValue(oneTask.todos);
-    // Alert.alert(
-    //   "Are you shure ? ",
-    //   `${oneTask.todos} replase on ${value}`,
-    //   [
-    //     {
-    //       text: "Cancel",
-    //       onPress: () => console.log("Cancel Pressed"),
-    //       style: "cancel"
-    //     },
-    //     {
-    //       text: "OK",
-    //       onPress: () => {
-    //         console.log("when touch onPress in todo screen -----", value);
-    //         onSave(oneTask.id, value);
-    //         setModal(false);
-    //         getValue(oneTask.todos);
-    //       }
-    //     }
-    //   ],
-    //   { cancelable: false }
-    // );
+    getValue(oneTask.title);
   };
 
   return (
@@ -53,7 +32,7 @@ const TodoScreen = ({ getValue }) => {
       />
       <Card>
         <View style={styles.textOutput}>
-          <Text style={styles.title}>{oneTask.todos}</Text>
+          <Text style={styles.title}>{oneTask.title}</Text>
           <Button title="Edit" onPress={() => setModal(true)} />
         </View>
       </Card>

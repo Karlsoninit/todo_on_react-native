@@ -35,7 +35,7 @@ const Todo = ({ todo, deleteItems, getIdForSwithingScreen }) => {
         onLongPress={() => deleteItems(todo.id)}
       >
         <View>
-          <Text>{todo.todos}</Text>
+          <Text>{todo.title}</Text>
         </View>
       </TouchableOpacity>
     </View>

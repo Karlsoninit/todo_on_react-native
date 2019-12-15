@@ -53,7 +53,7 @@ const TodoState = ({ children }) => {
 
   const showError = error => dispatch({ type: Type.SHOW_ERROR, error });
 
-  const clearError = () => dispatch({ type: Type.CLEAR_ERROR });
+  // const clearError = () => dispatch({ type: Type.CLEAR_ERROR });
 
   const deleteTodo = id => {
     const findElement = state.todos.find(todo => todo.id === id);
